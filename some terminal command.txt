@@ -1,0 +1,18 @@
+npm create vite@latest .
+
+√ Select a framework: » React
+√ Select a variant: » JavaScript
+
+npm i
+npm run dev
+
+
+
+
+nuotraukos ir paveiksliukai kituose vietose kodel pvz
+public vite.svg tas icon
+ir src asset react.svg sukantis react icon
+
+
+
+main.jsx reikia importams kalbetaskiu
