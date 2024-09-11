@@ -1,0 +1,30 @@
+.product {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+    padding: 1rem;
+    background-color: #fff;
+    font-size: 1.2rem;
+  }
+  .product:hover {
+    background-color: #eee;
+  }
+  .img {
+    width: 5rem;
+    height: 3rem;
+  }
+  .title {
+    font-style: italic;
+  }
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .btn {
+    padding: 0.5rem;
+  }
+  .count {
+    color: #f00;
+  }
+  .price {
+    font-weight: bold;
+  }

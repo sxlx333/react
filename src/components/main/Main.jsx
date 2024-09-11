@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Product } from "../products/Product"
+import { Product } from "../products/Product";
+import productStyle from '../products/Product.module.css';
+import mainStyle from './Main.module.css';
 
-const mainStyle = {
+const mainInlineStyle = {
     backgroundColor: 'green',
-  };
+};
 
 
 const productList = [
@@ -21,13 +23,25 @@ const initialProductsState = {};
 for (const product of productList){
     initialProductsState[product.name] = 0;
 }
-export function Main() {
 
+export function Main() {
     const [productsState, setProductsState] = useState(initialProductsState);
+    let totalCount = 0;
+    let totalPrice = 0;
+
+    for (const key in productsState){
+        totalCount += productsState[key];
+    }
+
+    for (const product of productList) {
+        totalPrice += product.price * productsState[product.name];
+    }
 
     function updateProductCount(productName, newCount) {
-        // neteisinga bet i tema
-        // productsState[productName] = newCount;
+        setProductsState({
+            ...productsState,
+            [productName]: newCount,
+        });
     }
 
     //   const products = [];
@@ -46,36 +60,29 @@ export function Main() {
     // .map(product => <Product key={product.key} {...product} />);
 
     return (
-        <main style={mainStyle}>
-            <h1>Zuikio parduotuve</h1>
+        <main style={mainInlineStyle}>
+            <h1 className={mainStyle.title}>Zuikio parduotuve</h1>
             <ul>
-                <li>
+                <li className={productStyle.product}>
                     <p>Img</p>
                     <p>Pavadinimas</p>
                     <p>Kiekis</p>
                     <p>Vieneto kaina</p>
-                    <p>kaina</p>
+                    <p>Kaina</p>
                 </li>
-                    {
+                {
                     productList
                         .filter(product => product.amount > 0)
-                        // eslint-disable-next-line react/jsx-key
-                        .map(product => <Product {...product} key={Product.key} />)
-                    }
-
-                {/* <Product name="Agurkas" price={5} />  {/* cia naujas key value obj */}
-                {/* <Product name="Pomkeyoras" price={7} />
-                <Product name="Svogunas" price={3.14} /> */}
-                {/* <Product name="Bulve" price={0.01} /> */}
-                {/* <Product name="Kalafioras" price={1000} /> */}
-                <li>
-                    <p></p>
-                    <p></p>
+                        .map(product => <Product {...product} key={product.key} updateProductCount={updateProductCount} />)
+                }
+                <li className={productStyle.product}>
                     <p></p>
                     <p>Total:</p>
-                    <p>0 eur</p>
+                    <p>{totalCount} vnt</p>
+                    <p></p>
+                    <p>{totalPrice.toFixed(2)} eur</p>
                 </li>
             </ul>
-      </main>
+        </main>
     );
 }
